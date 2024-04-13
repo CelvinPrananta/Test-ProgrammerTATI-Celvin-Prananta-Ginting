@@ -1703,11 +1703,15 @@ class UserManagementController extends Controller
         );
 
         $result_pegawai = DB::table('daftar_pegawai')
-            ->where('role_name', 'Staff')
             ->where(function ($query) {
-                $query->where('kedudukan_pns', 'Aktif');
-                $query->orWhereNull('kedudukan_pns');
-            });
+                $query->where('role_name', 'Staff')
+                    ->orWhere('role_name', 'Kepala Bidang');
+            })
+            ->where(function ($query) {
+                $query->where('kedudukan_pns', 'Aktif')
+                    ->orWhereNull('kedudukan_pns');
+            })
+            ->get();
         $totalData = $result_pegawai->count();
 
         $totalFiltered = $totalData;
@@ -1721,10 +1725,13 @@ class UserManagementController extends Controller
 
         if (empty($search)) {
             $data_pegawai =  DB::table('daftar_pegawai')
-                ->where('role_name', 'Staff')
                 ->where(function ($query) {
-                    $query->where('kedudukan_pns', 'Aktif');
-                    $query->orWhereNull('kedudukan_pns');
+                    $query->where('role_name', 'Staff')
+                        ->orWhere('role_name', 'Kepala Bidang');
+                })
+                ->where(function ($query) {
+                    $query->where('kedudukan_pns', 'Aktif')
+                        ->orWhereNull('kedudukan_pns');
                 })
                 ->offset($start)
                 ->limit($limit)
@@ -1733,10 +1740,13 @@ class UserManagementController extends Controller
 
         } else {
             $data_pegawai =  DB::table('daftar_pegawai')
-                ->where('role_name', 'Staff')
                 ->where(function ($query) {
-                    $query->where('kedudukan_pns', 'Aktif');
-                    $query->orWhereNull('kedudukan_pns');
+                    $query->where('role_name', 'Staff')
+                        ->orWhere('role_name', 'Kepala Bidang');
+                })
+                ->where(function ($query) {
+                    $query->where('kedudukan_pns', 'Aktif')
+                        ->orWhereNull('kedudukan_pns');
                 })
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
@@ -1748,11 +1758,15 @@ class UserManagementController extends Controller
                 ->get();
 
             $totalFiltered =  DB::table('daftar_pegawai')
-                ->where('role_name', 'Staff')
                 ->where(function ($query) {
-                    $query->where('kedudukan_pns', 'Aktif');
-                    $query->orWhereNull('kedudukan_pns');
+                    $query->where('role_name', 'Staff')
+                        ->orWhere('role_name', 'Kepala Bidang');
                 })
+                ->where(function ($query) {
+                    $query->where('kedudukan_pns', 'Aktif')
+                        ->orWhereNull('kedudukan_pns');
+                })
+
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
                           ->orWhere('nip', 'like', "%{$search}%");

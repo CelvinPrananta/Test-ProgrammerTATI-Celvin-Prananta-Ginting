@@ -39,6 +39,7 @@ class EmployeeController extends Controller
                 'users.email',
                 'users.avatar')
             ->where('daftar_pegawai.role_name', 'Staff')
+            ->orWhere('daftar_pegawai.role_name', 'Kepala Bidang')
             ->where(function ($query) {
                 $query->where('kedudukan_pns', 'Aktif');
                 $query->orWhereNull('kedudukan_pns');
@@ -1044,11 +1045,14 @@ class EmployeeController extends Controller
                 'profil_pegawai.tmt_cpns',
                 'profil_pegawai.tingkat_pendidikan',
                 'profil_pegawai.pendidikan_terakhir',
-                'profil_pegawai.ruangan',
+                'profil_pegawai.bidang',
                 'users.name as user_name',
                 'posisi_jabatan.jabatan'
             )
-            ->where('role_name', 'User');
+            ->where(function($query) {
+                $query->where('users.role_name', 'Staff')
+                      ->orWhere('users.role_name', 'Kepala Bidang');
+            });
 
         // Lakukan pencarian berdasarkan input form
         if ($request->input('nip')) {

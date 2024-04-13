@@ -1333,11 +1333,11 @@ table.dataTable thead > tr > td.sorting {
 -----------------------*/
 
 .header {
-	background: #f6f90c;
-	background: -moz-linear-gradient(left, #f6f90c 0%, #3a5b03 100%);
-	background: -webkit-linear-gradient(left, #f6f90c 0%, #3a5b03 100%);
-	background: -ms-linear-gradient(left, #f6f90c 0%, #3a5b03 100%);
-	background: linear-gradient(to right, #f6f90c 0%, #3a5b03 100%);
+	background: #249ae1;
+	background: -moz-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: -webkit-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: -ms-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: linear-gradient(to right, #249ae1 0%, #2978a8 100%);
 	border-bottom: 1px solid transparent;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 	height: 60px;
@@ -1505,7 +1505,7 @@ table.dataTable thead > tr > td.sorting {
 
 .sidebar {
     /* background-color: #34444c; */
-	background-color: #3a5b03;
+	background-color: #2b5e7c;
     border-right: 1px solid transparent;
     bottom: 0;
     left: 0;
@@ -1916,11 +1916,11 @@ table.dataTable thead > tr > td.sorting {
 	margin-bottom: 25px;
 }
 .account-box .account-btn {
-	background: #b3e207;
-	background: -moz-linear-gradient(left, #b3e207 0%, #0b6903 100%);
-	background: -webkit-linear-gradient(left, #b3e207 0%, #0b6903 100%);
-	background: -ms-linear-gradient(left, #b3e207 0%, #0b6903 100%);
-	background: linear-gradient(to right, #b3e207 0%, #0b6903 100%);
+	background: #249ae1;
+	background: -moz-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: -webkit-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: -ms-linear-gradient(left, #249ae1 0%, #2978a8 100%);
+	background: linear-gradient(to right, #249ae1 0%, #2978a8 100%);
 	border: 0;
     border-radius: 4px;
     display: block;
@@ -11554,7 +11554,7 @@ ul.nav-tabs > li > a {
 .fitur-tema {
     border-radius: 30px;
     text-align: center;
-	background-color: #588113;
+	background-color: #2b5e7c;
     height: 40px;
     width: 60px;
     margin-top: 10px;
