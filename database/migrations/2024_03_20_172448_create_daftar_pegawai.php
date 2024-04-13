@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('pendidikan_terakhir')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('ruangan')->nullable();
+            $table->string('bidang')->nullable();
             $table->string('kedudukan_pns')->nullable();
             $table->string('jenis_pegawai')->nullable();
             $table->string('jabatan')->nullable();
@@ -36,24 +36,12 @@ return new class extends Migration
         });
 
         DB::table('daftar_pegawai')->insert([
-            ['name'                         => 'Kelvin',
+            ['name'                         => 'Anton',
              'user_id'                      => 'ID_00001',
              'nip'                          => '1905102006',
-             'role_name'                    => 'Admin',
+             'role_name'                    => 'Kepala Dinas',
              'avatar'                       => 'photo_defaults.jpg'
             ],
-            ['name'                         => 'Frizsa Dias',
-             'user_id'                      => 'ID_00002',
-             'nip'                          => '1905101051',
-             'role_name'                    => 'Admin',
-             'avatar'                       => 'photo_defaults.jpg'
-            ],
-            ['name'                         => 'Bayu Saputra',
-             'user_id'                      => 'ID_00003',
-             'nip'                          => '2105102003',
-             'role_name'                    => 'Admin',
-             'avatar'                       => 'photo_defaults.jpg'
-            ]
         ]);
     }
 

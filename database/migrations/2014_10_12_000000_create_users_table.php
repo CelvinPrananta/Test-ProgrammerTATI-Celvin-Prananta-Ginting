@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('status')->nullable();
             $table->string('role_name')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('ruangan')->nullable();
+            $table->string('bidang')->nullable();
             $table->string('jenis_jabatan')->nullable();
             $table->string('eselon')->nullable();
             $table->timestamp('email_verified_at')->nullable();
@@ -35,57 +35,23 @@ class CreateUsersTable extends Migration
         });
 
         DB::table('users')->insert([
-            ['name'                         => 'Kelvin',
+            ['name'                         => 'Anton',
              'user_id'                      => 'ID_00001',
-             'email'                        => 'kelvin.p2504@gmail.com',
+             'email'                        => 'anton@gmail.com',
              'nip'                          => '1905102006',
              'no_dokumen'                   => NULL,
              'join_date'                    => now()->toDayDateTimeString(),
              'status'                       => 'Active',
-             'role_name'                    => 'Admin',
+             'role_name'                    => 'Kepala Dinas',
              'avatar'                       => 'photo_defaults.jpg',
-             'ruangan'                      => NULL,
-             'jenis_jabatan'                => 'Developer',
-             'eselon'                       => NULL,
-             'password'                     => Hash::make('Kelvin.P980425'),
-             'tema_aplikasi'                => 'Terang',
-             'created_at' => now(),
-             'updated_at' => now()
-            ],
-            ['name'                         => 'Frizsa Dias',
-             'user_id'                      => 'ID_00002',
-             'email'                        => 'frizsadias20@gmail.com',
-             'nip'                          => '1905101051',
-             'no_dokumen'                   => NULL,
-             'join_date'                    => now()->toDayDateTimeString(),
-             'status'                       => 'Active',
-             'role_name'                    => 'Admin',
-             'avatar'                       => 'photo_defaults.jpg',
-             'ruangan'                      => NULL,
-             'jenis_jabatan'                => 'Developer',
+             'bidang'                       => NULL,
+             'jenis_jabatan'                => 'Kepala Dinas',
              'eselon'                       => NULL,
              'password'                     => Hash::make('123456789'),
              'tema_aplikasi'                => 'Terang',
              'created_at' => now(),
              'updated_at' => now()
             ],
-            ['name'                         => 'Bayu Saputra',
-             'user_id'                      => 'ID_00003',
-             'email'                        => 'bayusputra131@gmail.com',
-             'nip'                          => '2105102003',
-             'no_dokumen'                   => NULL,
-             'join_date'                    => now()->toDayDateTimeString(),
-             'status'                       => 'Active',
-             'role_name'                    => 'Admin',
-             'avatar'                       => 'photo_defaults.jpg',
-             'ruangan'                      => NULL,
-             'jenis_jabatan'                => 'Developer',
-             'eselon'                       => NULL,
-             'password'                     => Hash::make('123456789'),
-             'tema_aplikasi'                => 'Terang',
-             'created_at' => now(),
-             'updated_at' => now()
-            ]
         ]);
     }
 

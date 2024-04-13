@@ -27,42 +27,6 @@
             </div>
             <!-- /Page Header -->
 
-            <!-- Export Excel -->
-            <form action="{{ route('export-daftar-pegawai') }}" method="GET">
-                <button type="submit" name="export" value="true" class="btn btn-success" style="border-radius : 20px">
-                    <i class="fa fa-file-excel"></i> Export Excel
-                </button>
-            </form><br>
-
-            <!-- Fitur Pencarian -->
-            {{-- <form action="{{ route('daftar/pegawai/list/search') }}" method="POST">
-                @csrf
-                <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating" name="nip">
-                            <label class="focus-label">NIP</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating" name="name">
-                            <label class="focus-label">Nama Pegawai</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating" name="email">
-                            <label class="focus-label">E-mail</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <button type="sumit" class="btn btn-success btn-block"> Cari </button>
-                    </div>
-                </div>
-            </form> --}}
-            <!-- /Fitur Pencarian -->
-
             {{-- message --}}
             {!! Toastr::message() !!}
 
@@ -78,7 +42,7 @@
                                     <th>Jabatan</th>
                                     <th>Pendidikan Terakhir</th>
                                     <th>Nomor HP</th>
-                                    <th>Ruang</th>
+                                    <th>Bidang</th>
                                     <th>Kedudukan</th>
                                     <th>Foto</th>
                                 </tr>
@@ -129,7 +93,7 @@
                             "data": "no_hp",
                         },
                         {
-                            "data": "ruangan"
+                            "data": "bidang"
                         },
                         {
                             "data": "kedudukan_pns"
@@ -168,11 +132,8 @@
         </script>
 
         <script>
-            @if (Auth::user()->role_name == 'Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Manajemen Daftar Pegawai - Admin | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->role_name == 'Super Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Informasi Daftar Pegawai - Super Admin | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Dinas') 
+                document.getElementById('pageTitle').innerHTML = 'Manajemen Daftar Pegawai - Kepala Dinas | Aplikasi Simpeg';
             @endif
         </script>
 

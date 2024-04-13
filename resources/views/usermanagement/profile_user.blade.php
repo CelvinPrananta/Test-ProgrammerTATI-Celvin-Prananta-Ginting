@@ -127,10 +127,10 @@
                                                     </li>
                                                     <li>
                                                         @if (Auth::user()->user_id == $posjab->user_id)
-                                                            <div class="title">Ruangan</div>
-                                                            <div class="text">{{ $propeg->ruangan }}</div>
+                                                            <div class="title">Bidang</div>
+                                                            <div class="text">{{ $propeg->bidang }}</div>
                                                         @else
-                                                            <div class="title">Ruangan</div>
+                                                            <div class="title">Bidang</div>
                                                             <div class="text">N/A</div>
                                                         @endif
                                                     </li>
@@ -164,7 +164,7 @@
                                                         <div class="text">N/A</div>
                                                     </li>
                                                     <li>
-                                                        <div class="title">Ruangan</div>
+                                                        <div class="title">Bidang</div>
                                                         <div class="text">N/A</div>
                                                     </li>
                                                 @endif
@@ -272,12 +272,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Ruangan</label>
+                                                    <label>Bidang</label>
                                                     <br>
-                                                    <select class="theSelect" name="ruangan" id="ruangan" style="width: 100% !important">
-                                                        <option selected disabled>-- Pilih Ruangan --</option>
-                                                        @foreach($ruanganOptions as $id => $result_ruangan)
-                                                            <option value="{{ $id }}" {{ $id == $propeg->ruangan ? 'selected' : '' }}>{{ $result_ruangan }}</option>
+                                                    <select class="theSelect" name="bidang" id="bidang" style="width: 100% !important">
+                                                        <option selected disabled>-- Pilih Bidang --</option>
+                                                        @foreach($bidangOptions as $id => $result_bidang)
+                                                            <option value="{{ $id }}" {{ $id == $propeg->bidang ? 'selected' : '' }}>{{ $result_bidang }}</option>
                                                         @endforeach
                                                     </select><br>
                                                     <small class="text-danger">*Jika pilihan tidak tersedia dapat memilih tanda ( - )</small>
@@ -388,12 +388,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Ruangan</label>
+                                                    <label>Bidang</label>
                                                     <br>
-                                                    <select class="theSelect" name="ruangan" id="ruangan" style="width: 100% !important">
-                                                        <option selected disabled>-- Pilih Ruangan --</option>
-                                                        @foreach($ruanganOptions as $id => $optionLabel)
-                                                            <option value="{{ $id }}" {{ $id == $propeg->ruangan ? 'selected' : '' }}>{{ $optionLabel }}</option>
+                                                    <select class="theSelect" name="bidang" id="bidang" style="width: 100% !important">
+                                                        <option selected disabled>-- Pilih Bidang --</option>
+                                                        @foreach($bidangOptions as $id => $optionLabel)
+                                                            <option value="{{ $id }}" {{ $id == $propeg->bidang ? 'selected' : '' }}>{{ $optionLabel }}</option>
                                                         @endforeach
                                                     </select><br>
                                                     <small class="text-danger">*Jika pilihan tidak tersedia dapat memilih tanda ( - )</small>
@@ -583,16 +583,14 @@
         </script>
 
         <script>
-            @if (Auth::user()->role_name == 'Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Profil - Admin | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Dinas') 
+                document.getElementById('pageTitle').innerHTML = 'Pengaturan Profil - Kepala Dinas | Aplikasi Simpeg';
             @endif
-            @if (Auth::user()->role_name == 'Super Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Profil - Super Admin | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->role_name == 'Kepala Ruang') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Profil - Kepala Ruang | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Bidang') 
+                document.getElementById('pageTitle').innerHTML = 'Pengaturan Profil - Kepala Bidang | Aplikasi Simpeg';
             @endif
         </script>
+
         <script src="{{ asset('assets/js/memuat-ulang.js') }}"></script>
 
     @endsection

@@ -96,7 +96,7 @@
                                 <button class="btn btn-primary account-btn" style="border-radius: 20px" type="submit">Perbaharui</button>
                             </div>
                             <div class="account-footer">
-                                <a style="color: #8e8e8e;"><strong>Copyright &copy;2023 - <script>document.write(new Date().getFullYear())</script> RSUD CARUBAN.</strong></a><br>
+                                <a style="color: #8e8e8e;"><strong>Copyright &copy;2023 - <script>document.write(new Date().getFullYear())</script> Pemerintah Daerah X.</strong></a><br>
                                 <p style="color: #8e8e8e;">All rights reserved.</p>
                             </div>
                         </form>

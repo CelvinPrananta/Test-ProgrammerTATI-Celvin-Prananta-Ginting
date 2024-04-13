@@ -79,7 +79,7 @@
                                                                         <td class="pad">
                                                                             <div style="font-family: sans-serif">
                                                                                 <div style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #555555;">
-                                                                                    <p style="margin: 0; text-align: center;">Anda mendapatkan email ini karena anda ingin melakukan penyetelan ulang sandi Aplikasi SILK. Untuk melanjutkan proses silahkan klik tautan berikut :</p>
+                                                                                    <p style="margin: 0; text-align: center;">Anda mendapatkan email ini karena anda ingin melakukan penyetelan ulang sandi Aplikasi Simpeg. Untuk melanjutkan proses silahkan klik tautan berikut :</p>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
@@ -161,7 +161,7 @@
                                                                         <td class="pad">
                                                                             <div style="font-family: sans-serif">
                                                                                 <div style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #555555;">
-                                                                                    <p style="margin: 0; font-size: 12px; text-align: right;">Hormat Kami,<br>Admin Developer - Aplikasi SILK</p>
+                                                                                    <p style="margin: 0; font-size: 12px; text-align: right;">Hormat Kami,<br>Admin Developer - Aplikasi Simpeg</p>
                                                                                 </div>
                                                                             </div>
                                                                         </td>

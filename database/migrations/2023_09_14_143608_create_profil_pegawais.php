@@ -42,15 +42,13 @@ return new class extends Migration
             $table->string('tmt_cpns')->nullable();
             $table->string('tingkat_pendidikan')->nullable();
             $table->string('pendidikan_terakhir')->nullable();
-            $table->string('ruangan')->nullable();
+            $table->string('bidang')->nullable();
             $table->string('dokumen_ktp')->nullable();
             $table->timestamps();
         });
 
         DB::table('profil_pegawais')->insert([
-            ['user_id' => 'ID_00001', 'name' => 'Kelvin', 'email' => 'kelvin.p2504@gmail.com', 'nip' => '1905102006'],
-            ['user_id' => 'ID_00002', 'name' => 'Frizsa Dias', 'email' => 'frizsadias20@gmail.com', 'nip' => '1905101051'],
-            ['user_id' => 'ID_00003', 'name' => 'Bayu Saputra', 'email' => 'bayusputra131@gmail.com', 'nip' => '2105102003']
+            ['user_id' => 'ID_00001', 'name' => 'Anton', 'email' => 'anton@gmail.com', 'nip' => '1905102006'],
         ]);
     }
 

@@ -6,21 +6,13 @@ use Illuminate\Http\Request;
 use DB;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Employee;
-use App\Models\department;
 use App\Models\User;
-use App\Models\module_permission;
 use App\Models\pendidikan;
 use App\Models\agama;
 use App\Models\jenis_pegawai;
-use App\Models\RiwayatDiklat;
-use App\Models\RiwayatGolongan;
-use App\Models\RiwayatJabatan;
-use App\Models\RiwayatPendidikan;
 use App\Models\kedudukan;
-use App\Models\ruangan;
-use App\Models\LayananCuti;
+use App\Models\bidang;
 use App\Models\Notification;
-use App\Models\ReferensiPangkat;
 use App\Models\sipDokter;
 use App\Models\sumpah;
 use App\Models\Province;
@@ -29,7 +21,6 @@ use App\Models\District;
 use App\Models\golongan_id;
 use App\Models\UnitOrganisasi;
 use App\Models\Village;
-use App\Models\RiwayatAnak;
 use Carbon\Carbon;
 use Session;
 
@@ -47,7 +38,7 @@ class EmployeeController extends Controller
                 'daftar_pegawai.nip',
                 'users.email',
                 'users.avatar')
-            ->where('daftar_pegawai.role_name', 'User')
+            ->where('daftar_pegawai.role_name', 'Staff')
             ->where(function ($query) {
                 $query->where('kedudukan_pns', 'Aktif');
                 $query->orWhereNull('kedudukan_pns');
@@ -130,13 +121,13 @@ class EmployeeController extends Controller
                 'posisi_jabatan.jabatan',
                 'profil_pegawai.pendidikan_terakhir',
                 'profil_pegawai.no_hp',
-                'profil_pegawai.ruangan',
+                'profil_pegawai.bidang',
                 'profil_pegawai.kedudukan_pns',
                 'profil_pegawai.user_id',
                 'users.avatar'
             )
             ->where(function($query) {
-                $query->where('role_name', 'User')
+                $query->where('role_name', 'Staff')
                     ->where(function($query) {
                         $query->whereNull('profil_pegawai.kedudukan_pns')
                             ->orWhere('profil_pegawai.kedudukan_pns', 'Aktif');
@@ -303,7 +294,7 @@ class EmployeeController extends Controller
                 'posisi_jabatan.jabatan',
                 'profil_pegawai.pendidikan_terakhir',
                 'profil_pegawai.no_hp',
-                'profil_pegawai.ruangan',
+                'profil_pegawai.bidang',
                 'profil_pegawai.kedudukan_pns',
                 'profil_pegawai.user_id',
                 'users.avatar')
@@ -379,7 +370,7 @@ class EmployeeController extends Controller
     public function cardRuangan(Request $request)
     {
         $user = auth()->user();
-        $ruangan = $user->ruangan;
+        $bidang = $user->bidang;
         $data_ruangan = DB::table('daftar_pegawai')
             ->join('users', 'daftar_pegawai.user_id', 'users.user_id')
             ->select(
@@ -387,11 +378,11 @@ class EmployeeController extends Controller
                 'daftar_pegawai.name',
                 'daftar_pegawai.nip',
                 'users.email',
-                'daftar_pegawai.ruangan',
+                'daftar_pegawai.bidang',
                 'users.avatar'
             )
             ->where('daftar_pegawai.role_name', 'User')
-            ->where('daftar_pegawai.ruangan', $ruangan)
+            ->where('daftar_pegawai.bidang', $bidang)
             ->get();
 
         $result_tema = DB::table('mode_aplikasi')
@@ -1368,7 +1359,7 @@ class EmployeeController extends Controller
                 'pg.tmt_cpns',
                 'pg.tingkat_pendidikan',
                 'pg.pendidikan_terakhir',
-                'pg.ruangan',
+                'pg.bidang',
                 'pg.dokumen_ktp',
                 'pj.unit_organisasi',
                 'pj.unit_organisasi_induk',
@@ -1429,7 +1420,7 @@ class EmployeeController extends Controller
                 'pg.tmt_cpns',
                 'pg.tingkat_pendidikan',
                 'pg.pendidikan_terakhir',
-                'pg.ruangan',
+                'pg.bidang',
                 'pg.dokumen_ktp',
                 'pj.unit_organisasi',
                 'pj.unit_organisasi_induk',
@@ -1450,283 +1441,6 @@ class EmployeeController extends Controller
             )
             ->where('users.user_id', $user_id)->first();
 
-        $riwayatPendidikan = DB::table('users')
-            ->leftJoin('riwayat_pendidikan as rp', 'rp.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'rp.id',
-                'rp.id_pend',
-                'rp.ting_ped',
-                'rp.pendidikan',
-                'rp.tahun_lulus',
-                'rp.no_ijazah',
-                'rp.nama_sekolah',
-                'rp.gelar_depan_pend',
-                'rp.gelar_belakang_pend',
-                'rp.jenis_pendidikan',
-                'rp.dokumen_transkrip',
-                'rp.dokumen_ijazah',
-                'rp.dokumen_gelar'
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatPendidikans = $riwayatPendidikan->first();
-
-        $riwayatGolongan = DB::table('users')
-            ->leftJoin('riwayat_golongan as rg', 'rg.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'rg.id',
-                'rg.id_gol',
-                'rg.golongan',
-                'rg.jenis_kenaikan_pangkat',
-                'rg.masa_kerja_golongan_tahun',
-                'rg.masa_kerja_golongan_bulan',
-                'rg.tmt_golongan_riwayat',
-                'rg.no_teknis_bkn',
-                'rg.tanggal_teknis_bkn',
-                'rg.no_sk_golongan',
-                'rg.tanggal_sk_golongan',
-                'rg.dokumen_skkp',
-                'rg.dokumen_teknis_kp'
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatGolongans = $riwayatGolongan->first();
-
-        $riwayatJabatan = DB::table('users')
-            ->leftJoin('riwayat_jabatan as rj', 'rj.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'rj.id',
-                'rj.id_jab',
-                'rj.jenis_jabatan_riwayat',
-                'rj.satuan_kerja',
-                'rj.satuan_kerja_induk',
-                'rj.unit_organisasi_riwayat',
-                'rj.no_sk',
-                'rj.tanggal_sk',
-                'rj.tmt_jabatan',
-                'rj.tmt_pelantikan',
-                'rj.dokumen_sk_jabatan',
-                'rj.dokumen_pelantikan'
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatJabatans = $riwayatJabatan->first();
-
-        $riwayatDiklat = DB::table('users')
-            ->leftJoin('riwayat_diklat as rd', 'rd.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'rd.id',
-                'rd.id_dik',
-                'rd.jenis_diklat',
-                'rd.nama_diklat',
-                'rd.institusi_penyelenggara',
-                'rd.no_sertifikat',
-                'rd.tanggal_mulai',
-                'rd.tanggal_selesai',
-                'rd.tahun_diklat',
-                'rd.durasi_jam',
-                'rd.dokumen_diklat'
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatDiklats = $riwayatDiklat->first();
-
-        $kenaikanGaji = DB::table('users')
-            ->leftJoin('kenaikan_gaji_berkala as kgb', 'kgb.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'kgb.id',
-                'kgb.name',
-                'kgb.nip',
-                'kgb.golongan_awal',
-                'kgb.golongan_akhir',
-                'kgb.gapok_lama',
-                'kgb.gapok_baru',
-                'kgb.tgl_sk_kgb',
-                'kgb.no_sk_kgb',
-                'kgb.tgl_berlaku',
-                'kgb.masa_kerja_golongan',
-                'kgb.masa_kerja',
-                'kgb.tmt_kgb',
-                'kgb.dokumen_kgb'
-            )
-            ->where('users.user_id', $user_id)->get();
-        $kenaikanGajis = $kenaikanGaji->first();
-
-        $riwayatPMK = DB::table('users')
-            ->leftJoin('riwayat_pmk as pmk', 'pmk.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'pmk.id',
-                'pmk.jenis_pmk',
-                'pmk.instansi',
-                'pmk.tanggal_awal',
-                'pmk.tanggal_akhir',
-                'pmk.no_sk',
-                'pmk.tanggal_sk',
-                'pmk.no_bkn',
-                'pmk.tanggal_bkn',
-                'pmk.masa_tahun',
-                'pmk.masa_bulan',
-                'pmk.dokumen_pmk',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatPMKs = $riwayatPMK->first();
-
-        $riwayatAngkaKredit = DB::table('users')
-            ->leftJoin('riwayat_angka_kredit as angkakredit', 'angkakredit.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'angkakredit.id',
-                'angkakredit.nama_jabatan',
-                'angkakredit.nomor_sk',
-                'angkakredit.tanggal_sk',
-                'angkakredit.angka_kredit_pertama',
-                'angkakredit.konversi',
-                'angkakredit.integrasi',
-                'angkakredit.bulan_mulai',
-                'angkakredit.tahun_mulai',
-                'angkakredit.bulan_selesai',
-                'angkakredit.tahun_selesai',
-                'angkakredit.angka_kredit_utama',
-                'angkakredit.angka_kredit_penunjang',
-                'angkakredit.total_angka_kredit',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatAngkaKredits = $riwayatAngkaKredit->first();
-
-        $riwayatOrangTua = DB::table('users')
-            ->leftJoin('riwayat_orang_tua as ortu', 'ortu.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'ortu.id',
-                'ortu.status_hidup',
-                'ortu.status_pekerjaan_ortu',
-                'ortu.nip',
-                'ortu.nama',
-                'ortu.tanggal_lahir',
-                'ortu.jenis_kelamin',
-                'ortu.tanggal_meninggal',
-                'ortu.jenis_identitas',
-                'ortu.no_hp',
-                'ortu.no_telepon',
-                'ortu.agama',
-                'ortu.status_pernikahan',
-                'ortu.email',
-                'ortu.alamat',
-                'ortu.dokumen_kk',
-                'ortu.dokumen_akta_lahir_anak',
-                'ortu.pas_foto_ayah',
-                'ortu.pas_foto_ibu',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatOrangTuas = $riwayatOrangTua->first();
-
-        $riwayatPasangan = DB::table('users')
-            ->leftJoin('riwayat_pasangan as pasangan', 'pasangan.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'pasangan.id',
-                'pasangan.suami_istri_ke',
-                'pasangan.status_pekerjaan_pasangan',
-                'pasangan.nip',
-                'pasangan.nama',
-                'pasangan.status_hidup',
-                'pasangan.tanggal_lahir',
-                'pasangan.jenis_kelamin',
-                'pasangan.jenis_identitas',
-                'pasangan.no_hp',
-                'pasangan.no_telepon',
-                'pasangan.agama',
-                'pasangan.status_pernikahan',
-                'pasangan.email',
-                'pasangan.no_karis_karsu',
-                'pasangan.alamat',
-                'pasangan.dokumen_nikah',
-                'pasangan.pas_foto',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatPasangans = $riwayatPasangan->first();
-
-        $riwayatAnak = DB::table('users')
-            ->leftJoin('riwayat_anak as anak', 'anak.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'anak.id',
-                'anak.orang_tua',
-                'anak.status_pekerjaan_anak',
-                'anak.nama_anak',
-                'anak.jenis_kelamin',
-                'anak.tanggal_lahir',
-                'anak.status_anak',
-                'anak.jenis_dokumen',
-                'anak.no_dokumen',
-                'anak.agama',
-                'anak.status_hidup',
-                'anak.no_akta_kelahiran',
-                'anak.dokumen_akta_kelahiran',
-                'anak.pas_foto',
-            )
-            ->where('users.user_id', $user_id)->get();
-
-        $dataAnak = Session::get('user_id'); 
-        $riwayatAnaks = RiwayatAnak::where('user_id', $dataAnak)->get();
-        $userList = DB::table('riwayat_pasangan')
-        ->where('riwayat_pasangan.user_id', $dataAnak)
-        ->select('riwayat_pasangan.nama')
-        ->get();
-
-        $riwayatPenghargaan = DB::table('users')
-            ->leftJoin('riwayat_penghargaan as penghargaan', 'penghargaan.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'penghargaan.id',
-                'penghargaan.jenis_penghargaan',
-                'penghargaan.tahun_perolehan',
-                'penghargaan.no_surat',
-                'penghargaan.tanggal_keputusan',
-                'penghargaan.dokumen_penghargaan',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatPenghargaans = $riwayatPenghargaan->first();
-
-        $riwayatOrganisasi = DB::table('users')
-            ->leftJoin('riwayat_organisasi as organisasi', 'organisasi.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'organisasi.id',
-                'organisasi.nama_organisasi',
-                'organisasi.jabatan_organisasi',
-                'organisasi.tanggal_gabung',
-                'organisasi.tanggal_selesai',
-                'organisasi.no_anggota',
-                'organisasi.dokumen_organisasi',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatOrganisasis = $riwayatOrganisasi->first();
-
-        $riwayatHukumDisiplin = DB::table('users')
-            ->leftJoin('riwayat_hukuman_disiplin as hukum', 'hukum.user_id', 'users.user_id')
-            ->select(
-                'users.*',
-                'hukum.id',
-                'hukum.kategori_hukuman',
-                'hukum.tingkat_hukuman',
-                'hukum.jenis_hukuman',
-                'hukum.no_sk_hukuman',
-                'hukum.no_peraturan',
-                'hukum.alasan',
-                'hukum.tanggal_sk_hukuman',
-                'hukum.masa_hukuman_tahun',
-                'hukum.tmt_hukuman',
-                'hukum.masa_hukuman_bulan',
-                'hukum.keterangan',
-                'hukum.dokumen_sk_hukuman',
-                'hukum.dokumen_sk_pengaktifan',
-            )
-            ->where('users.user_id', $user_id)->get();
-        $riwayatHukumDisiplins = $riwayatHukumDisiplin->first();
-
         $agamaOptions = DB::table('agama_id')->pluck('agama', 'agama');
 
         $kedudukanOptions = DB::table('kedudukan_hukum_id')->pluck('kedudukan', 'kedudukan');
@@ -1735,7 +1449,7 @@ class EmployeeController extends Controller
 
         $tingkatpendidikanOptions = DB::table('tingkat_pendidikan_id')->pluck('tingkat_pendidikan', 'tingkat_pendidikan');
 
-        $ruanganOptions = DB::table('ruangan_id')->pluck('ruangan', 'ruangan');
+        $bidangOptions = DB::table('bidang_id')->pluck('bidang', 'bidang');
 
         $jenisjabatanOptions = DB::table('jenis_jabatan_id')->pluck('nama', 'nama');
 
@@ -1812,19 +1526,11 @@ class EmployeeController extends Controller
         return view('employees.employeeprofile', compact(
             'user',
             'users',
-            'riwayatPendidikan',
-            'riwayatPendidikans',
-            'riwayatGolongan',
-            'riwayatGolongans',
-            'riwayatJabatan',
-            'riwayatJabatans',
-            'riwayatDiklat',
-            'riwayatDiklats',
             'agamaOptions',
             'kedudukanOptions',
             'jenispegawaiOptions',
             'tingkatpendidikanOptions',
-            'ruanganOptions',
+            'bidangOptions',
             'jenisjabatanOptions',
             'golonganOptions',
             'jenisdiklatOptions',
@@ -1832,25 +1538,6 @@ class EmployeeController extends Controller
             'unreadNotifications',
             'readNotifications',
             'provinces',
-            'kenaikanGaji',
-            'kenaikanGajis',
-            'riwayatPMK',
-            'riwayatPMKs',
-            'riwayatAngkaKredit',
-            'riwayatAngkaKredits',
-            'riwayatOrangTua',
-            'riwayatOrangTuas',
-            'riwayatPasangan',
-            'riwayatPasangans',
-            'riwayatAnak',
-            'riwayatAnaks',
-            'userList',
-            'riwayatPenghargaan',
-            'riwayatPenghargaans',
-            'riwayatOrganisasi',
-            'riwayatOrganisasis',
-            'riwayatHukumDisiplin',
-            'riwayatHukumDisiplins',
             'result_tema', 
             'semua_notifikasi', 
             'belum_dibaca', 
@@ -2818,8 +2505,8 @@ class EmployeeController extends Controller
             ->whereNotNull('read_at')
             ->get();
 
-        $ruangan = DB::table('ruangan_id')->get();
-        return view('employees.ruangan', compact('ruangan', 
+        $bidang = DB::table('bidang_id')->get();
+        return view('employees.bidang', compact('bidang', 
             'unreadNotifications', 'readNotifications', 'result_tema', 'semua_notifikasi', 'belum_dibaca', 'dibaca'));
     }
 

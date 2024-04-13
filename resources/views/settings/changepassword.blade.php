@@ -102,23 +102,14 @@
         <script src="{{ asset('assets/js/indicatorkatasandi.js') }}"></script>
 
         <script>
-            @if (Auth::user()->role_name == 'Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Admin | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Dinas') 
+                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Kepala Dinas | Aplikasi Simpeg';
             @endif
-            @if (Auth::user()->role_name == 'Super Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Super Admin | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Staff') 
+                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Staff | Aplikasi Simpeg';
             @endif
-            @if (Auth::user()->role_name == 'User') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - User | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->role_name == 'Kepala Ruang') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Kepala Ruang | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->eselon == '3') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Eselon 3 | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->eselon == '4') 
-                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Eselon 4 | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Bidang') 
+                document.getElementById('pageTitle').innerHTML = 'Pengaturan Ubah Kata Sandi - Kepala Bidang | Aplikasi Simpeg';
             @endif
         </script>
         

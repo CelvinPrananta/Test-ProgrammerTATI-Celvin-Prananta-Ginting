@@ -8,7 +8,7 @@
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="SoengSouy Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title id="pageTitle">Beranda | Aplikasi SILK</title>
+    <title id="pageTitle">Beranda | Aplikasi Simpeg</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::to('assets/img/favicon.png') }}">
     <!-- Bootstrap CSS -->
@@ -484,7 +484,7 @@
             <div class="header-left">
                 <a href="{{ route('home') }}" class="logo" style="font-size: 24px; color: #3b5c03; font-weight: bold;">
                     <i class="fa fa-user" style="display: inline-block;"></i>
-                    <span class="logo-text" style="display: inline-block;">SILK</span>
+                    <span class="logo-text" style="display: inline-block;">SIMPEG</span>
                 </a>
             </div>
 
@@ -728,19 +728,16 @@
                         <span>{{ Session::get('name') }}</span>
                     </a>
                     <div class="dropdown-menu">
-                        @if (Auth::user()->role_name == 'Admin')
-                            <a class="dropdown-item" href="{{ route('admin-profile') }}">Profil Saya</a>
+                        @if (Auth::user()->role_name == 'Kepala Dinas')
+                            <a class="dropdown-item" href="{{ route('kepala-dinas-profile') }}">Profil Saya</a>
                         @endif
-                        @if (Auth::user()->role_name == 'Super Admin')
-                            <a class="dropdown-item" href="{{ route('super-admin-profile') }}">Profil Saya</a>
+                        @if (Auth::user()->role_name == 'Kepala Bidang')
+                            <a class="dropdown-item" href="{{ route('kepala-bidang-profile') }}">Profil Saya</a>
                         @endif
-                        @if (Auth::user()->role_name == 'Kepala Ruang')
-                            <a class="dropdown-item" href="{{ route('kepala-ruangan-profile') }}">Profil Saya</a>
-                        @endif
-                        @if (Auth::user()->role_name == 'User')
-                            <a class="dropdown-item" href="{{ route('user-profile') }}">Profil Saya</a>
+                        @if (Auth::user()->role_name == 'Staff')
+                            <a class="dropdown-item" href="{{ route('staff-profile') }}">Profil Saya</a>
                         @endif                        
-                        @if (Auth::user()->role_name == 'Admin' || Auth::user()->role_name == 'Super Admin')
+                        @if (Auth::user()->role_name == 'Kepala Dinas')
                             <a class="dropdown-item" href="{{ route('pengaturan-perusahaan') }}">Pengaturan</a>
                         @endif
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
@@ -755,19 +752,16 @@
                     <i class="fa fa-ellipsis-v"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    @if (Auth::user()->role_name == 'Admin')
-                        <a class="dropdown-item" href="{{ route('admin-profile') }}">Profil Saya</a>
+                    @if (Auth::user()->role_name == 'Kepala Dinas')
+                        <a class="dropdown-item" href="{{ route('kepala-dinas-profile') }}">Profil Saya</a>
                     @endif
-                    @if (Auth::user()->role_name == 'Super Admin')
-                        <a class="dropdown-item" href="{{ route('super-admin-profile') }}">Profil Saya</a>
+                    @if (Auth::user()->role_name == 'Kepala Bidang')
+                        <a class="dropdown-item" href="{{ route('kepala-bidang-profile') }}">Profil Saya</a>
                     @endif
-                    @if (Auth::user()->role_name == 'Kepala Ruang')
-                        <a class="dropdown-item" href="{{ route('kepala-ruangan-profile') }}">Profil Saya</a>
-                    @endif
-                    @if (Auth::user()->role_name == 'User')
-                        <a class="dropdown-item" href="{{ route('user-profile') }}">Profil Saya</a>
+                    @if (Auth::user()->role_name == 'Staff')
+                        <a class="dropdown-item" href="{{ route('staff-profile') }}">Profil Saya</a>
                     @endif                        
-                    @if (Auth::user()->role_name == 'Admin' || Auth::user()->role_name == 'Super Admin')
+                    @if (Auth::user()->role_name == 'Kepala Dinas')
                         <a class="dropdown-item" href="{{ route('pengaturan-perusahaan') }}">Pengaturan</a>
                     @endif
                     <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>

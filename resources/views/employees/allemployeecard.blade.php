@@ -75,18 +75,6 @@
                 </label> entries
             </div>
 
-            <div class="dataTables_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous">
-                        <a href="#" class="page-link" onclick="previousEntries()">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item" id="pageButtons">
-                    <li class="paginate_button page-item next">
-                        <a href="#" class="page-link" onclick="nextEntries()">Next</a>
-                    </li>
-                </ul>
-            </div>
-
             <div class="row staff-grid-row">
                 @foreach ($users as $lists )
                     <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
@@ -100,6 +88,18 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <div class="dataTables_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous">
+                        <a href="#" class="page-link" onclick="previousEntries()">Previous</a>
+                    </li>
+                    <li class="paginate_button page-item" id="pageButtons">
+                    <li class="paginate_button page-item next">
+                        <a href="#" class="page-link" onclick="nextEntries()">Next</a>
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -218,11 +218,8 @@
         <script src="{{ asset('assets/js/memuat-ulang.js') }}"></script>
 
         <script>
-            @if (Auth::user()->role_name == 'Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Manajemen Daftar Pegawai - Admin | Aplikasi SILK';
-            @endif
-            @if (Auth::user()->role_name == 'Super Admin') 
-                document.getElementById('pageTitle').innerHTML = 'Informasi Daftar Pegawai - Super Admin | Aplikasi SILK';
+            @if (Auth::user()->role_name == 'Kepala Dinas') 
+                document.getElementById('pageTitle').innerHTML = 'Manajemen Daftar Pegawai - Kepala Dinas | Aplikasi Simpeg';
             @endif
         </script>
 

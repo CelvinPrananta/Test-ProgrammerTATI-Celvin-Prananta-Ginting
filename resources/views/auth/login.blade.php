@@ -8,8 +8,8 @@
                 <!-- /Account Logo -->
                 <div class="account-box">
                     <div class="account-wrapper">
-                        <h3 class="account-title">SILK</h3>
-                        <h3 class="account-title2">Sistem Informasi Layanan Kepegawaian</h3><br>
+                        <h3 class="account-title">SIMPEG</h3>
+                        <h3 class="account-title2">Sistem Informasi Kepegawaian</h3><br>
                         <!-- Account Form -->
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -64,7 +64,7 @@
                                 <button class="btn btn-primary account-btn" style="border-radius: 20px" type="submit">Masuk</button>
                             </div>
                             <div class="account-footer">
-                                <a style="color: #8e8e8e;"><strong>Copyright &copy;2023 - <script>document.write(new Date().getFullYear())</script> RSUD CARUBAN.</strong></a><br>
+                                <a style="color: #8e8e8e;"><strong>Copyright &copy;2023 - <script>document.write(new Date().getFullYear())</script> Pemerintah Daerah X.</strong></a><br>
                                 <p style="color: #8e8e8e;">All rights reserved.</p>
                             </div>
                         </form>
