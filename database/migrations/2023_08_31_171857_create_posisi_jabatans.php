@@ -37,7 +37,7 @@ return new class extends Migration
         });
 
         DB::table('posisi_jabatans')->insert([
-            ['user_id' => 'ID_00001', 'nip' => '1905102006'],
+            ['user_id' => 'ID_00001', 'nip' => '0001'],
         ]);
     }
 

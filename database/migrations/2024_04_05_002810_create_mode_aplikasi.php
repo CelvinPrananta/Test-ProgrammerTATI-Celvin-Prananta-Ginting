@@ -32,9 +32,9 @@ return new class extends Migration
         });
 
         DB::table('mode_aplikasi')->insert([
-            ['name'                         => 'Anton',
+            ['name'                         => 'Kelvin',
              'user_id'                      => 'ID_00001',
-             'email'                        => 'anton@gmail.com',
+             'email'                        => 'kelvin.masif@gmail.com',
              'tema_aplikasi'                => 'Terang',
              'warna_sistem'                 => NULL,
              'warna_sistem_tulisan'         => NULL,

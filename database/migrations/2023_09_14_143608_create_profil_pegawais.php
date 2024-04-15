@@ -48,7 +48,7 @@ return new class extends Migration
         });
 
         DB::table('profil_pegawais')->insert([
-            ['user_id' => 'ID_00001', 'name' => 'Anton', 'email' => 'anton@gmail.com', 'nip' => '1905102006'],
+            ['user_id' => 'ID_00001', 'name' => 'Kelvin', 'email' => 'kelvin.masif@gmail.com', 'nip' => '0001'],
         ]);
     }
 

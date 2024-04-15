@@ -35,10 +35,10 @@ class CreateUsersTable extends Migration
         });
 
         DB::table('users')->insert([
-            ['name'                         => 'Anton',
+            ['name'                         => 'Kelvin',
              'user_id'                      => 'ID_00001',
-             'email'                        => 'anton@gmail.com',
-             'nip'                          => '1905102006',
+             'email'                        => 'kelvin.masif@gmail.com',
+             'nip'                          => '0001',
              'no_dokumen'                   => NULL,
              'join_date'                    => now()->toDayDateTimeString(),
              'status'                       => 'Active',

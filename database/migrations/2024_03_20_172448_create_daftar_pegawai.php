@@ -36,9 +36,9 @@ return new class extends Migration
         });
 
         DB::table('daftar_pegawai')->insert([
-            ['name'                         => 'Anton',
+            ['name'                         => 'Kelvin',
              'user_id'                      => 'ID_00001',
-             'nip'                          => '1905102006',
+             'nip'                          => '0001',
              'role_name'                    => 'Kepala Dinas',
              'avatar'                       => 'photo_defaults.jpg'
             ],
