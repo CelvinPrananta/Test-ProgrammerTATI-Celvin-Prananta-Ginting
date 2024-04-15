@@ -296,16 +296,22 @@ class CatatanHarian extends Controller
     public function tampilanCatatanKepalaDinas()
     {
         $data_staff = DB::table('catatan_harian')
+            ->join('daftar_pegawai', 'catatan_harian.user_id', '=', 'daftar_pegawai.user_id')
             ->select(
-                'catatan_harian.*',
+                'catatan_harian.id',
                 'catatan_harian.user_id',
                 'catatan_harian.name',
                 'catatan_harian.nip',
                 'catatan_harian.catatan_kegiatan',
                 'catatan_harian.tanggal_kegiatan',
-                'catatan_harian.status_pengajuan'
+                'catatan_harian.status_pengajuan',
+                'catatan_harian.persetujuan_kepala_dinas',
+                'catatan_harian.persetujuan_kepala_bidang',
             )
+            ->where('daftar_pegawai.role_name', 'Staff')
+            ->orWhere('role_name', 'Kepala Bidang')
             ->get();
+
 
         $userList = DB::table('daftar_pegawai')
             ->select('daftar_pegawai.*')
@@ -386,6 +392,102 @@ class CatatanHarian extends Controller
         ));
     }
     /** /Tampilan Catatan Harian Kepala Dinas */
+
+    /** Tampilan Catatan Harian Kepala Dinas Pribadi */
+    public function tampilanCatatanPribadiKepalaDinas()
+    {
+        $user_id = auth()->user()->user_id;
+        $data_pribadi_kepala_dinas = DB::table('catatan_harian')
+            ->select(
+                'catatan_harian.*',
+                'catatan_harian.user_id',
+                'catatan_harian.name',
+                'catatan_harian.nip',
+                'catatan_harian.catatan_kegiatan',
+                'catatan_harian.tanggal_kegiatan',
+                'catatan_harian.status_pengajuan'
+            )
+            ->where('catatan_harian.user_id', $user_id)
+            ->get();
+
+        $data_profilkepaladinas_pribadi = DB::table('profil_pegawai')
+            ->select('profil_pegawai.*', 'profil_pegawai.name', 'profil_pegawai.nip')
+            ->where('profil_pegawai.user_id', $user_id)
+            ->get();
+
+        $user = auth()->user();
+        $role = $user->role_name;
+        $unreadNotifications = Notification::where('notifiable_id', $user->id)
+            ->where('notifiable_type', get_class($user))
+            ->whereNull('read_at')
+            ->get();
+
+        $readNotifications = Notification::where('notifiable_id', $user->id)
+            ->where('notifiable_type', get_class($user))
+            ->whereNotNull('read_at')
+            ->get();
+
+        $result_tema = DB::table('mode_aplikasi')
+            ->select(
+                'mode_aplikasi.id',
+                'mode_aplikasi.tema_aplikasi',
+                'mode_aplikasi.warna_sistem',
+                'mode_aplikasi.warna_sistem_tulisan',
+                'mode_aplikasi.warna_mode',
+                'mode_aplikasi.tabel_warna',
+                'mode_aplikasi.tabel_tulisan_tersembunyi',
+                'mode_aplikasi.warna_dropdown_menu',
+                'mode_aplikasi.ikon_plugin',
+                'mode_aplikasi.bayangan_kotak_header',
+                'mode_aplikasi.warna_mode_2',
+                )
+            ->where('user_id', auth()->user()->user_id)
+            ->get();
+
+        $semua_notifikasi = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->get();
+
+        $belum_dibaca = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->whereNull('read_at')
+            ->get();
+
+        $dibaca = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->whereNotNull('read_at')
+            ->get();
+
+        return view('kepala-dinas.catatan-harian-pribadi', compact(
+            'data_pribadi_kepala_dinas',
+            'data_profilkepaladinas_pribadi',
+            'unreadNotifications',
+            'readNotifications',
+            'result_tema', 
+            'semua_notifikasi', 
+            'belum_dibaca', 
+            'dibaca'
+        ));
+    }
+    /** /Tampilan Catatan Harian Kepala Dinas Pribadi */
 
     /** Tambah Data Catatan Harian */
     public function tambahDataCatatanHarian(Request $request)
@@ -790,18 +892,25 @@ class CatatanHarian extends Controller
         $tanggal_kegiatan = $request->input('tanggal_kegiatan');
         $status_pengajuan = $request->input('status_pengajuan');
         $data_staff = DB::table('catatan_harian')
+            ->join('daftar_pegawai', 'catatan_harian.user_id', '=', 'daftar_pegawai.user_id')
             ->select(
-                'catatan_harian.*',
+                'catatan_harian.id',
                 'catatan_harian.user_id',
                 'catatan_harian.name',
                 'catatan_harian.nip',
                 'catatan_harian.catatan_kegiatan',
                 'catatan_harian.tanggal_kegiatan',
-                'catatan_harian.status_pengajuan'
+                'catatan_harian.status_pengajuan',
+                'catatan_harian.persetujuan_kepala_dinas',
+                'catatan_harian.persetujuan_kepala_bidang',
             )
             ->where('catatan_harian.name', 'like', '%' . $name . '%')
             ->where('catatan_harian.tanggal_kegiatan', 'like', '%' . $tanggal_kegiatan . '%')
             ->where('catatan_harian.status_pengajuan', 'like', '%' . $status_pengajuan . '%')
+            ->where(function($query) {
+                $query->where('daftar_pegawai.role_name', 'Staff')
+                    ->orWhere('daftar_pegawai.role_name', 'Kepala Bidang');
+            })
             ->get();
 
         $userList = DB::table('daftar_pegawai')->get();
@@ -879,6 +988,121 @@ class CatatanHarian extends Controller
         ));
     }
     /** /Pencarian Catatan Harian Kepala Dinas */
+
+    /** Pencarian Catatan Harian Kepala Dinas Pribadi */
+    public function pencarianCatatanHarianPribadiKepalaDinas(Request $request)
+    {
+        $user_id = auth()->user()->user_id;
+        $name = $request->input('name');
+        $catatan_kegiatan = $request->input('catatan_kegiatan');
+        $tanggal_kegiatan = $request->input('tanggal_kegiatan');
+        $status_pengajuan = $request->input('status_pengajuan');
+
+        $data_pribadi_kepala_dinas = DB::table('catatan_harian')
+            ->select(
+                'catatan_harian.*',
+                'catatan_harian.user_id',
+                'catatan_harian.name',
+                'catatan_harian.nip',
+                'catatan_harian.catatan_kegiatan',
+                'catatan_harian.tanggal_kegiatan',
+                'catatan_harian.status_pengajuan'
+            )
+            ->where('catatan_harian.user_id', '=', $user_id)
+            ->where('catatan_harian.name', 'like', '%' . $name . '%')
+            ->where('catatan_harian.catatan_kegiatan', 'like', '%' . $catatan_kegiatan . '%')
+            ->where('catatan_harian.tanggal_kegiatan', 'like', '%' . $tanggal_kegiatan . '%')
+            ->where('catatan_harian.status_pengajuan', 'like', '%' . $status_pengajuan . '%')
+            ->get();
+
+        $data_profilkepaladinas_pribadi = DB::table('profil_pegawai')
+            ->select('profil_pegawai.*', 'profil_pegawai.name', 'profil_pegawai.nip')
+            ->where('profil_pegawai.user_id', $user_id)
+            ->get();
+
+        $pencarianDataCatatan = DB::table('catatan_harian')
+            ->join('users', 'users.user_id', '=', 'catatan_harian.user_id')
+            ->where('users.user_id', $user_id)
+            ->where('catatan_harian.name', 'like', '%' . $name . '%')
+            ->where('catatan_harian.catatan_kegiatan', 'like', '%' . $catatan_kegiatan . '%')
+            ->where('catatan_harian.tanggal_kegiatan', 'like', '%' . $tanggal_kegiatan . '%')
+            ->where('catatan_harian.status_pengajuan', 'like', '%' . $status_pengajuan . '%')
+            ->get();
+        
+        $user = auth()->user();
+        $role = $user->role_name;
+        $unreadNotifications = Notification::where('notifiable_id', $user->id)
+            ->where('notifiable_type', get_class($user))
+            ->whereNull('read_at')
+            ->get();
+
+        $readNotifications = Notification::where('notifiable_id', $user->id)
+            ->where('notifiable_type', get_class($user))
+            ->whereNotNull('read_at')
+            ->get();
+
+        $result_tema = DB::table('mode_aplikasi')
+            ->select(
+                'mode_aplikasi.id',
+                'mode_aplikasi.tema_aplikasi',
+                'mode_aplikasi.warna_sistem',
+                'mode_aplikasi.warna_sistem_tulisan',
+                'mode_aplikasi.warna_mode',
+                'mode_aplikasi.tabel_warna',
+                'mode_aplikasi.tabel_tulisan_tersembunyi',
+                'mode_aplikasi.warna_dropdown_menu',
+                'mode_aplikasi.ikon_plugin',
+                'mode_aplikasi.bayangan_kotak_header',
+                'mode_aplikasi.warna_mode_2',
+                )
+            ->where('user_id', auth()->user()->user_id)
+            ->get();
+
+        $semua_notifikasi = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->get();
+
+        $belum_dibaca = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->whereNull('read_at')
+            ->get();
+
+        $dibaca = DB::table('notifications')
+            ->leftjoin('users', 'notifications.notifiable_id', 'users.id')
+            ->select(
+                'notifications.*',
+                'notifications.id',
+                'users.name',
+                'users.avatar'
+            )
+            ->whereNotNull('read_at')
+            ->get();
+
+        return view('kepala-dinas.catatan-harian-pribadi', compact(
+            'pencarianDataCatatan',
+            'data_pribadi_kepala_dinas',
+            'data_profilkepaladinas_pribadi',
+            'unreadNotifications',
+            'readNotifications',
+            'result_tema', 
+            'semua_notifikasi', 
+            'belum_dibaca', 
+            'dibaca'
+        ));
+    }
+    /** /Pencarian Catatan Harian Kepala Dinas Pribadi */
 
     /** Tampilan Update Status Perhomonan */
     public function updateStatusCatatanHarian(Request $request, $id)

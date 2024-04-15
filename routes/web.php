@@ -10,10 +10,11 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LockScreen;
-use App\Http\Controllers\ExportExcelController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\CatatanHarian;
+use App\Http\Controllers\HelloWorldController;
+use App\Http\Controllers\PredikatKinerjaController;
 use AzisHapidin\IndoRegion\IndoRegion;
 
 
@@ -227,6 +228,7 @@ Route::controller(CatatanHarian::class)->group(function () {
     Route::get('catatan/harian/kepala-bidang', 'tampilanCatatanKepalaBidang')->name('catatan-harian-kepala-bidang');
     Route::get('catatan/harian/verifikasi/kepala-bidang', 'tampilanCatatanVerifikasiKepalaBidang')->name('catatan-harian-verifikasi-kepala-bidang');
     Route::get('catatan/harian/kepala-dinas', 'tampilanCatatanKepalaDinas')->name('catatan-harian-kepala-dinas');
+    Route::get('catatan/harian/pribadi/kepala-dinas', 'tampilanCatatanPribadiKepalaDinas')->name('catatan-harian-pribadi-kepala-dinas');
     
     Route::post('catatan/harian/tambah-data', 'tambahDataCatatanHarian')->name('catatan/harian/tambah-data');
     Route::post('catatan/harian/edit-data', 'editDataCatatanHarian')->name('catatan/harian/edit-data');
@@ -235,6 +237,7 @@ Route::controller(CatatanHarian::class)->group(function () {
     Route::get('catatan/harian/kepala-bidang/cari', 'pencarianCatatanHarianKepalaBidang')->name('catatan/harian/kepala-bidang/cari');
     Route::get('catatan/harian/verifikasi/kepala-bidang/cari', 'pencarianVerifikasiCatatanHarianKepalaBidang')->name('catatan/harian/verifikasi/kepala-bidang/cari');
     Route::get('catatan/harian/kepala-dinas/cari', 'pencarianCatatanHarianKepalaDinas')->name('catatan/harian/kepala-dinas/cari');
+    Route::get('catatan/harian/pribadi/kepala-dinas/cari', 'pencarianCatatanHarianPribadiKepalaDinas')->name('catatan/harian/pribadi/kepala-dinas/cari');
 
     Route::patch('/update-status/catatan/{id}', 'updateStatusCatatanHarian')->name('updateStatusCatatan');
 
@@ -244,4 +247,17 @@ Route::controller(CatatanHarian::class)->group(function () {
 Route::controller(NotificationController::class)->group(function () {
     Route::get('tampilan/semua/notifikasi', 'tampilanNotifikasi')->name('tampilan-semua-notifikasi');
     Route::get('/tampilan/semua/notifikasi/hapus/data/{id}', 'hapusNotifikasi')->name('tampilan-semua-notifikasi-hapus-data');
+});
+
+// ----------------------- Tampilan Hello World --------------------------//
+Route::controller(HelloWorldController::class)->group(function () {
+    Route::get('tampilan/hello/world/1', 'indexHelloWord1')->name('tampilan-hello-world-1');
+    Route::post('tampilan/hello/world/1', 'hasil_helloworld')->name('tampilan-hello-world-1');
+    Route::get('tampilan/hello/world/2', 'indexHelloWord2')->name('tampilan-hello-world-2');
+});
+
+// ----------------------- Tampilan Predikat Kinerja --------------------------//
+Route::controller(PredikatKinerjaController::class)->group(function () {
+    Route::get('tampilan/predikat/kinerja', 'index')->name('tampilan-predikat-kinerja');
+    Route::post('tampilan/predikat/kinerja', 'predikat_kinerja')->name('tampilan-predikat-kinerja');
 });

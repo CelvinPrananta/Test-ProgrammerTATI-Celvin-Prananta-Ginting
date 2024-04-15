@@ -77,6 +77,32 @@
                             <span>Catatan Harian</span>
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('catatan-harian-pribadi-kepala-dinas') ? 'active' : '' }}">
+                        <a href="{{ route('catatan-harian-pribadi-kepala-dinas') }}" class="{{ request()->routeIs('catatan-harian-pribadi-kepala-dinas') ? 'noti-dot' : '' }}">
+                            <i class="las la-newspaper"></i>
+                            <span>Catatan Harian Pribadi</span>
+                        </a>
+                    </li>
+                    <li class="menu-title"> <span>Tampilan Predikat Kinerja</span></li>
+                    <li class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-predikat-kinerja') }}" class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'noti-dot' : '' }}">
+                            <i class="la la-sliders"></i>
+                            <span>Predikat Kinerja</span>
+                        </a>
+                    </li>
+                    <li class="menu-title"> <span>Tampilan Hello World</span></li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-1') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-1') }}" class="{{ request()->routeIs('tampilan-hello-world-1') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 1</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-2') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-2') }}" class="{{ request()->routeIs('tampilan-hello-world-2') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 2</span>
+                        </a>
+                    </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>
                     <li class="{{ set_active(['kepala-dinas/profile']) }}">
                         <a href="{{ route('kepala-dinas-profile') }}"
@@ -108,6 +134,26 @@
                             <span>Verifikasi Catatan</span>
                         </a>
                     </li>
+                    <li class="menu-title"> <span>Tampilan Predikat Kinerja</span></li>
+                    <li class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-predikat-kinerja') }}" class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'noti-dot' : '' }}">
+                            <i class="la la-sliders"></i>
+                            <span>Predikat Kinerja</span>
+                        </a>
+                    </li>
+                    <li class="menu-title"> <span>Tampilan Hello World</span></li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-1') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-1') }}" class="{{ request()->routeIs('tampilan-hello-world-1') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 1</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-2') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-2') }}" class="{{ request()->routeIs('tampilan-hello-world-2') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 2</span>
+                        </a>
+                    </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>
                     <li class="{{ set_active(['kepala-bidang/profile']) }}">
                         <a href="{{ route('kepala-bidang-profile') }}"
@@ -133,7 +179,26 @@
                             <span>Catatan Harian</span>
                         </a>
                     </li>
-                    
+                    <li class="menu-title"> <span>Tampilan Predikat Kinerja</span></li>
+                    <li class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-predikat-kinerja') }}" class="{{ request()->routeIs('tampilan-predikat-kinerja') ? 'noti-dot' : '' }}">
+                            <i class="la la-sliders"></i>
+                            <span>Predikat Kinerja</span>
+                        </a>
+                    </li>
+                    <li class="menu-title"> <span>Tampilan Hello World</span></li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-1') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-1') }}" class="{{ request()->routeIs('tampilan-hello-world-1') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 1</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-2') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-2') }}" class="{{ request()->routeIs('tampilan-hello-world-2') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 2</span>
+                        </a>
+                    </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>
                     <li class="{{ set_active(['staff/profile']) }}">
                         <a href="{{ route('staff-profile') }}"

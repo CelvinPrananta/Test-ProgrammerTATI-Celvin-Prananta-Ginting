@@ -36,19 +36,16 @@
             </div>
             <!-- /Page Header -->
 
-            <div class="row filter-row">
-                <div class="col-sm-6 col-md-2">
-                    @php
-                        $lastCuti = $data_staff->last();
-                    @endphp
-                    @if ($lastCuti)
-                        <button type="button" class="btn btn-info" style="border-radius: 20px" id="lihatSemua">
-                            <i id="icon2" class="fa fa-eye-slash"></i> Lihat Semua Progress
-                        </button>
-                    @else
-                    @endif
-                </div>
-            </div><br>
+            @php
+                $lastCuti = $data_staff->last();
+            @endphp
+            @if ($lastCuti)
+                <button type="button" class="btn btn-info" id="lihatSemua" style="border-radius: 20px">
+                    <i id="icon2" class="fa fa-eye-slash"></i> Lihat Semua Progress
+                </button>
+            @else
+            @endif
+            <br><br>
                 
             <!-- Search Filter -->
             <form action="{{ route('catatan/harian/kepala-dinas/cari') }}" method="GET" id="search-form">
@@ -99,8 +96,8 @@
                                     <th>Kegiatan</th>
                                     <th>Tanggal Kegiatan</th>
                                     <th>Status Catatan</th>
-                                    <th>Persetujuan Kepala Dinas</th>
                                     <th>Progress Persetujuan</th>
+                                    <th>Persetujuan Kepala Dinas</th>
                                     <th class="text-right no-sort">Aksi</th>
                                 </tr>
                             </thead>
@@ -141,6 +138,28 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td class="progress_persetujuan">
+                                        <div class="dropdown status-persetujuan-user">
+                                            @if ($result_cuti->persetujuan_kepala_bidang == 'Disetujui')
+                                                <i class="fa fa-dot-circle-o text-success"></i>
+                                                @elseif ($result_cuti->persetujuan_kepala_bidang == 'Pending')
+                                                <i class="fa fa-dot-circle-o text-warning"></i>
+                                            @elseif ($result_cuti->persetujuan_kepala_bidang == 'Ditolak')
+                                                <i class="fa fa-dot-circle-o text-danger"></i>
+                                            @endif
+                                            <span class="persetujuan_kepala_bidang">{{ $result_cuti->persetujuan_kepala_bidang }}</span> (Kelapa Bidang)
+                                        </div>
+                                        <div class="dropdown status-persetujuan-user">
+                                            @if ($result_cuti->persetujuan_kepala_dinas == 'Disetujui')
+                                                <i class="fa fa-dot-circle-o text-success"></i>
+                                            @elseif ($result_cuti->persetujuan_kepala_dinas == 'Pending')
+                                                <i class="fa fa-dot-circle-o text-warning"></i>
+                                            @elseif ($result_cuti->persetujuan_kepala_dinas == 'Ditolak')
+                                                <i class="fa fa-dot-circle-o text-danger"></i>
+                                            @endif
+                                                <span class="persetujuan_kepala_dinas">{{ $result_cuti->persetujuan_kepala_dinas }}</span> (Kepala Dinas)
+                                        </div>
+                                    </td>
                                     <td class="persetujuan_kepala_dinas">
                                         <div class="dropdown">
                                             <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" id="statusDropdown" data-toggle="dropdown" aria-expanded="false">
@@ -168,28 +187,6 @@
                                                     </button>
                                                 </form>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="progress_persetujuan">
-                                        <div class="dropdown status-persetujuan-user">
-                                            @if ($result_cuti->persetujuan_kepala_bidang == 'Disetujui')
-                                                <i class="fa fa-dot-circle-o text-success"></i>
-                                                @elseif ($result_cuti->persetujuan_kepala_bidang == 'Pending')
-                                                <i class="fa fa-dot-circle-o text-warning"></i>
-                                            @elseif ($result_cuti->persetujuan_kepala_bidang == 'Ditolak')
-                                                <i class="fa fa-dot-circle-o text-danger"></i>
-                                            @endif
-                                            <span class="persetujuan_kepala_bidang">{{ $result_cuti->persetujuan_kepala_bidang }}</span> (Kelapa Bidang)
-                                        </div>
-                                        <div class="dropdown status-persetujuan-user">
-                                            @if ($result_cuti->persetujuan_kepala_dinas == 'Disetujui')
-                                                <i class="fa fa-dot-circle-o text-success"></i>
-                                            @elseif ($result_cuti->persetujuan_kepala_dinas == 'Pending')
-                                                <i class="fa fa-dot-circle-o text-warning"></i>
-                                            @elseif ($result_cuti->persetujuan_kepala_dinas == 'Ditolak')
-                                                <i class="fa fa-dot-circle-o text-danger"></i>
-                                            @endif
-                                                <span class="persetujuan_kepala_dinas">{{ $result_cuti->persetujuan_kepala_dinas }}</span> (Kepala Dinas)
                                         </div>
                                     </td>
 
