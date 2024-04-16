@@ -232,6 +232,7 @@ Route::controller(CatatanHarian::class)->group(function () {
     
     Route::post('catatan/harian/tambah-data', 'tambahDataCatatanHarian')->name('catatan/harian/tambah-data');
     Route::post('catatan/harian/edit-data', 'editDataCatatanHarian')->name('catatan/harian/edit-data');
+    Route::post('catatan/harian/hapus-data', 'hapusDataCatatanHarian')->name('catatan/harian/hapus-data');
 
     Route::get('catatan/harian/staff/cari', 'pencarianCatatanHarianStaff')->name('catatan/harian/staff/cari');
     Route::get('catatan/harian/kepala-bidang/cari', 'pencarianCatatanHarianKepalaBidang')->name('catatan/harian/kepala-bidang/cari');

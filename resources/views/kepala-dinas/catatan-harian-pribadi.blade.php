@@ -1,20 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-    <style>
-        .fa-eye {
-            color: white;
-        }
-
-        @foreach($result_tema as $sql_user => $aplikasi_tema)
-            @if ($aplikasi_tema->tema_aplikasi == 'Gelap')
-                .text-warning, .dropdown-menu > li > a.text-warning {color: #ffbc34 !important;}
-                .text-success, .dropdown-menu > li > a.text-success {color: #55ce63 !important;}
-                .text-danger, .dropdown-menu > li > a.text-danger {color: #f62d51 !important;}
-            @endif
-        @endforeach
-    </style>
-
         <!-- Page Wrapper -->
         <div class="page-wrapper">
             <!-- Page Content -->
@@ -195,13 +181,8 @@
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        @if ($result_cuti_pribadi->status_pengajuan == 'Disetujui')
-                                                            <a class="dropdown-item edit_catatan_harian disabled" href="#" data-toggle="modal" data-target="#edit_catatan_harian"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        @elseif ($result_cuti_pribadi->status_pengajuan == 'Pending')
-                                                            <a class="dropdown-item edit_catatan_harian" href="#" data-toggle="modal" data-target="#edit_catatan_harian"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        @elseif ($result_cuti_pribadi->status_pengajuan == 'Ditolak')
-                                                            <a class="dropdown-item edit_catatan_harian" href="#" data-toggle="modal" data-target="#edit_catatan_harian"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        @endif
+                                                        <a class="dropdown-item edit_catatan_harian" href="#" data-toggle="modal" data-target="#edit_catatan_harian"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item delete_catatan_harian" href="#" data-toggle="modal" data-target="#delete_catatan_harian"><i class='fa fa-trash-o m-r-5'></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -307,8 +288,53 @@
                 </div>
                 <!-- /Edit Catatan Harian Modal -->
 
+                <!-- Delete Catatan Harian Modal -->
+                <div class="modal custom-modal fade" id="delete_catatan_harian" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="form-header">
+                                    <h3>Hapus Catatan Harian</h3>
+                                    <p>Apakah anda yakin ingin menghapus data ini?</p>
+                                </div>
+                                <div class="modal-btn delete-action">
+                                    <form action="{{ route('catatan/harian/hapus-data') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" class="e_id_catatan" value="">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="submit"
+                                                    class="btn btn-danger continue-btn submit-btn">Hapus</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="javascript:void(0);" data-dismiss="modal"
+                                                    class="btn btn-primary cancel-btn">Kembali</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Delete Catatan Harian Modal -->
+
             </div>
             <!-- /Page Wrapper -->
+
+    <style>
+        .fa-eye {
+            color: white;
+        }
+
+        @foreach($result_tema as $sql_user => $aplikasi_tema)
+            @if ($aplikasi_tema->tema_aplikasi == 'Gelap')
+                .text-warning, .dropdown-menu > li > a.text-warning {color: #ffbc34 !important;}
+                .text-success, .dropdown-menu > li > a.text-success {color: #55ce63 !important;}
+                .text-danger, .dropdown-menu > li > a.text-danger {color: #f62d51 !important;}
+            @endif
+        @endforeach
+    </style>
 
     @section('script')
         <script type="text/javascript">

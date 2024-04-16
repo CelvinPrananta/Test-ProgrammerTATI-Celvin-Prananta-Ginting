@@ -553,6 +553,22 @@ class CatatanHarian extends Controller
     }
     /** /Edit Data Catatan Harian */
 
+    /** Hapus Data Catatan Harian */
+    public function hapusDataCatatanHarian(Request $request)
+    {
+        try {
+            LogHarian::destroy($request->id);
+
+            Toastr::success('Data catatan harian berhasil dihapus ✔', 'Success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Toastr::error('Data catatan harian gagal dihapus ✘', 'Error');
+            return redirect()->back();
+        }
+    }
+    /** Hapus Data Catatan Harian */
+
     /** Pencarian Catatan Harian Staff */
     public function pencarianCatatanHarianStaff(Request $request)
     {
