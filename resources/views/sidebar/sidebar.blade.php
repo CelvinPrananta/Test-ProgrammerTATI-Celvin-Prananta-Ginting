@@ -103,6 +103,12 @@
                             <span>Hello World 2</span>
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-3') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-3') }}" class="{{ request()->routeIs('tampilan-hello-world-3') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 3</span>
+                        </a>
+                    </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>
                     <li class="{{ set_active(['kepala-dinas/profile']) }}">
                         <a href="{{ route('kepala-dinas-profile') }}"
@@ -154,6 +160,12 @@
                             <span>Hello World 2</span>
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-3') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-3') }}" class="{{ request()->routeIs('tampilan-hello-world-3') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 3</span>
+                        </a>
+                    </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>
                     <li class="{{ set_active(['kepala-bidang/profile']) }}">
                         <a href="{{ route('kepala-bidang-profile') }}"
@@ -197,6 +209,12 @@
                         <a href="{{ route('tampilan-hello-world-2') }}" class="{{ request()->routeIs('tampilan-hello-world-2') ? 'noti-dot' : '' }}">
                             <i class="la la-slack"></i>
                             <span>Hello World 2</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->routeIs('tampilan-hello-world-3') ? 'active' : '' }}">
+                        <a href="{{ route('tampilan-hello-world-3') }}" class="{{ request()->routeIs('tampilan-hello-world-3') ? 'noti-dot' : '' }}">
+                            <i class="la la-slack"></i>
+                            <span>Hello World 3</span>
                         </a>
                     </li>
                     <li class="menu-title"> <span>Pengaturan Profil</span> </li>

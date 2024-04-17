@@ -255,6 +255,8 @@ Route::controller(HelloWorldController::class)->group(function () {
     Route::get('tampilan/hello/world/1', 'indexHelloWord1')->name('tampilan-hello-world-1');
     Route::post('tampilan/hello/world/1', 'hasil_helloworld')->name('tampilan-hello-world-1');
     Route::get('tampilan/hello/world/2', 'indexHelloWord2')->name('tampilan-hello-world-2');
+    Route::get('tampilan/hello/world/3', 'indexHelloWord3')->name('tampilan-hello-world-3');
+    Route::post('tampilan/hello/world/3', 'hasil_helloworld3')->name('tampilan-hello-world-3');
 });
 
 // ----------------------- Tampilan Predikat Kinerja --------------------------//
